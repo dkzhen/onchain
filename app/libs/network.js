@@ -13,7 +13,7 @@ const customChains = [
     },
     rpcUrls: {
       default: {
-        http: ["https://sepolia.infura.io"],
+        http: ["https://rpc.sepolia.org", "https://eth-sepolia.public.blastapi.io"],
       },
     },
     blockExplorers: {
@@ -165,6 +165,36 @@ const customChains = [
     rpcUrls: {
       default: {
         http: ["https://testnet-rpc.monad.xyz"],
+      },
+    },
+    blockExplorers: {
+      default: {
+        name: "SnowTrace",
+        url: "",
+      },
+    },
+    contracts: {
+      multicall3: {
+        address: "",
+        blockCreated: 0,
+      },
+    },
+  },
+  {
+    id: 11155931,
+    name: "Rise Testnet",
+    network: "rise-testnet",
+    isTestnet: true,
+    isCustom: false,
+    iconUrl: "https://www.gas.zip/faucets/faucetRise.svg",
+    nativeCurrency: {
+      name: "Monad",
+      symbol: "MON",
+      decimals: 18,
+    },
+    rpcUrls: {
+      default: {
+        http: ["https://testnet.riselabs.xyz"],
       },
     },
     blockExplorers: {
