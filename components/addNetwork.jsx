@@ -10,11 +10,20 @@ export default function AddNetworkModal() {
   const [iconUrl, setIconUrl] = useState("");
   const [explorerUrl, setExplorerUrl] = useState("");
   const [isTestnet, setIsTestnet] = useState(true);
-
+  const [errors, setErrors] = useState({});
   const handleAdd = () => {
-    if (!name || !id || !rpcUrl)
-      return alert("Please fill out all required fields");
+    const newErrors = {};
 
+    if (!name.trim()) newErrors.name = "Network Name is required";
+    if (!id.trim()) newErrors.id = "Chain ID is required";
+    if (!rpcUrl.trim()) newErrors.rpcUrl = "RPC URL is required";
+
+    setErrors(newErrors); // <- ini update UI-nya
+
+    // Kalau ada error, jangan lanjut
+    if (Object.keys(newErrors).length > 0) return;
+
+    // Kalau valid, lanjut tambah network
     addNetwork({
       name,
       id,
@@ -32,6 +41,7 @@ export default function AddNetworkModal() {
     setIconUrl("");
     setExplorerUrl("");
     setIsTestnet(true);
+    setErrors({}); // reset error juga biar bersih
     toggleModal();
   };
 
@@ -46,23 +56,53 @@ export default function AddNetworkModal() {
 
         <div className="flex flex-col gap-4">
           <input
-            className="p-2 rounded bg-gray-800 border border-gray-600 text-white"
+            className={`p-2 rounded w-full bg-gray-800 border text-white ${
+              errors.name ? "border-red-500" : "border-gray-600"
+            }`}
             placeholder="Network Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value);
+              if (errors.name) {
+                setErrors((prev) => ({ ...prev, name: undefined }));
+              }
+            }}
           />
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+          )}
           <input
-            className="p-2 rounded bg-gray-800 border border-gray-600 text-white"
+            className={`p-2 rounded w-full bg-gray-800 border text-white ${
+              errors.name ? "border-red-500" : "border-gray-600"
+            }`}
             placeholder="Chain ID"
             value={id}
-            onChange={(e) => setId(e.target.value)}
+            onChange={(e) => {
+              setId(e.target.value);
+              if (errors.id) {
+                setErrors((prev) => ({ ...prev, id: undefined }));
+              }
+            }}
           />
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+          )}
           <input
-            className="p-2 rounded bg-gray-800 border border-gray-600 text-white"
+            className={`p-2 rounded w-full bg-gray-800 border text-white ${
+              errors.name ? "border-red-500" : "border-gray-600"
+            }`}
             placeholder="RPC URL"
             value={rpcUrl}
-            onChange={(e) => setRpcUrl(e.target.value)}
+            onChange={(e) => {
+              setRpcUrl(e.target.value);
+              if (errors.rpcUrl) {
+                setErrors((prev) => ({ ...prev, rpcUrl: undefined }));
+              }
+            }}
           />
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+          )}
           <input
             className="p-2 rounded bg-gray-800 border border-gray-600 text-white"
             placeholder="Icon URL (optional)"

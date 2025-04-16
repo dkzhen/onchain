@@ -129,7 +129,7 @@ export default function AvailableNetworks() {
               {allNetworks.slice(maxVisible).map((network) => (
                 <div
                   key={network.id}
-                  className={`p-3 rounded-lg border flex items-center gap-3 cursor-pointer transition ${
+                  className={`relative p-3 rounded-lg border flex items-center gap-3 cursor-pointer transition ${
                     activeNetwork === network.id
                       ? "border-blue-500 bg-blue-900/20"
                       : "border-gray-700 bg-gray-800/40 hover:border-gray-600"
@@ -139,18 +139,43 @@ export default function AvailableNetworks() {
                     setShowMore(false);
                   }}
                 >
-                  <div className="w-8 h-8 rounded-full overflow-hidden bg-white flex items-center justify-center">
-                    <img
-                      src={network.icon}
-                      alt={network.name}
-                      className="w-full h-full object-cover"
-                    />
+                  {network.isCustom && (
+                    <button
+                      className="absolute top-1 cursor-pointer right-1 text-red-400 hover:text-red-600 z-10"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        removeNetwork(network.id);
+                      }}
+                      title="Remove Network"
+                    >
+                      <Trash2 className="w-4 h-4 mr-[4px] mt-[4px] " />
+                    </button>
+                  )}
+
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-gray-100 to-slate-50 p-[2px]">
+                    <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
+                      <img
+                        src={network.icon}
+                        alt={network.name}
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    </div>
                   </div>
-                  <div className="text-sm text-white">
+
+                  <div className="flex-1 text-sm text-white">
                     <p className="font-medium">{network.name}</p>
                     <p className="text-xs text-gray-400">
                       Chain ID: {network.id}
                     </p>
+                    <span
+                      className={`text-[10px] mt-1 inline-block px-2 py-0.5 rounded-full ${
+                        network.isTestnet
+                          ? "bg-yellow-600 text-yellow-100"
+                          : "bg-green-600 text-green-100"
+                      }`}
+                    >
+                      {network.isTestnet ? "Testnet" : "Mainnet"}
+                    </span>
                   </div>
                 </div>
               ))}
