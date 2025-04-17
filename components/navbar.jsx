@@ -33,7 +33,9 @@ export default function Navbar() {
             <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
               Smart Tools
             </h1>
-            <p className="text-sm text-gray-400">Smart management tools</p>
+            <p className="text-sm text-gray-400">
+              Smart tools to deploy and manage your contracts on any network.
+            </p>
           </div>
         </div>
 
