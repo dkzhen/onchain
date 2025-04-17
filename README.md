@@ -24,17 +24,13 @@
 - 🔒 **Open Source & Verified**  
   Transparent and secure — access `.sol` source code, ABI, and bytecode links.
 
----
-
 ## 📸 UI Preview
 
-| Network Selection                   | Contract Type                                   | Deployment Form                        |
-| ----------------------------------- | ----------------------------------------------- | -------------------------------------- |
-| ![Network](./public/ui-network.png) | ![Contract Type](./public/ui-contract-type.png) | ![Deploy Form](./public/ui-deploy.png) |
+Take a look at how the Smart Tools interface works — clean, simple, and developer-friendly:
 
-> Replace these with real screenshots of your UI
-
----
+| **Network Selection** | **Tools Selector** | **Deployment Form** |
+|-----------------------|--------------------|---------------------|
+| ![Network Selection](https://github.com/user-attachments/assets/fc8831a5-e8f9-4187-8b86-88cdea7f5fc9) | ![Tools Selector](https://github.com/user-attachments/assets/c5dbf2e1-beb7-4456-bcbd-9af79b7b2d33) | ![Deployment Form](https://github.com/user-attachments/assets/e591921a-5cc1-494b-9409-3355d5c4e3af) |
 
 ## 🧑‍💻 Built With
 
@@ -50,7 +46,7 @@
 Clone the project and run it locally:
 
 ```bash
-git clone https://github.com/ethenanova/smart-tools.git
+git clone https://github.com/dkzhen/smart-tools.git
 cd smart-tools
 npm install
 npm run dev
