@@ -27,7 +27,7 @@ export default function AddNetworkModal() {
     addNetwork({
       name,
       id,
-      icon: iconUrl || "https://owlto.finance/icon/token/Ethereum.png",
+      icon: iconUrl || "/icons/default.png",
       isTestnet,
       rpcUrl,
       explorerUrl,

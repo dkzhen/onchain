@@ -47,63 +47,86 @@ export default function AvailableNetworks() {
 
       {/* Content */}
       <div className="px-4 md:px-6 pb-6">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
-          {allNetworks.slice(0, maxVisible).map((network) => (
-            <div
-              key={network.id}
-              className={`relative p-3 text-sm rounded-lg border transition-all flex flex-col items-center justify-center gap-2 ${
-                activeNetwork === network.id
-                  ? "border-blue-500 bg-blue-900/20"
-                  : "border-gray-700 bg-gray-800/50 hover:border-gray-600"
-              }`}
+        {/* Selected Network Info */}
+        {activeNetwork && (
+          <div className="mt-4 mb-2 text-sm text-blue-400">
+            Selected Network:{" "}
+            <span className="font-semibold text-white">
+              {allNetworks.find((n) => n.id === activeNetwork)?.name}
+            </span>{" "}
+            <span
+              className={`ml-2 px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm
+          ${
+            allNetworks.find((n) => n.id === activeNetwork)?.isTestnet
+              ? "bg-gradient-to-r from-yellow-500 to-yellow-700 text-yellow-50"
+              : "bg-gradient-to-r from-green-500 to-green-700 text-green-50"
+          }`}
             >
-              {network.isCustom && (
-                <button
-                  className="absolute top-1 right-1 cursor-pointer text-red-400 hover:text-red-600"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    removeNetwork(network.id);
-                    toast({
-                      title: "Network Removed",
-                      description: `${network.name} has been removed.`,
-                    });
-                  }}
-                  title="Remove Network"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
-              )}
+              {allNetworks.find((n) => n.id === activeNetwork)?.isTestnet
+                ? "Testnet"
+                : "Mainnet"}
+            </span>
+          </div>
+        )}
 
-              <button
-                className="flex flex-col items-center justify-center gap-2 cursor-pointer"
-                onClick={() => setActiveNetwork(network.id)}
+        {/* Network Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
+          {allNetworks
+            .sort((a, b) => (b.isCustom ? 1 : 0) - (a.isCustom ? 1 : 0)) // Prioritize custom networks
+            .slice(0, maxVisible)
+            .map((network) => (
+              <div
+                key={network.id}
+                className={`relative p-3 text-sm rounded-lg border transition-all flex flex-col items-center justify-center gap-2 ${
+                  activeNetwork === network.id
+                    ? "border-blue-500 bg-blue-900/20"
+                    : "border-gray-700 bg-gray-800/50 hover:border-gray-600"
+                }`}
               >
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-gray-100 to-slate-50 p-[2px]">
-                  <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
-                    <img
-                      src={network.icon}
-                      alt={network.name}
-                      className="w-full h-full object-cover rounded-full"
-                    />
-                  </div>
-                </div>
+                {network.isCustom && (
+                  <button
+                    className="absolute top-1 right-1 cursor-pointer text-red-400 hover:text-red-600"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeNetwork(network.id);
+                    }}
+                    title="Remove Network"
+                  >
+                    <Trash2 className="w-4 h-4 mr-[4px] mt-[4px]" />
+                  </button>
+                )}
 
-                <span className="text-white text-xs font-medium truncate">
-                  {network.name}
-                </span>
-                <span
-                  className={`text-[10px] mt-1 px-2 py-0.5 rounded-full ${
-                    network.isTestnet
-                      ? "bg-yellow-600 text-yellow-100"
-                      : "bg-green-600 text-green-100"
-                  }`}
+                <button
+                  className="flex flex-col items-center justify-center gap-2 cursor-pointer"
+                  onClick={() => setActiveNetwork(network.id)}
                 >
-                  {network.isTestnet ? "Testnet" : "Mainnet"}
-                </span>
-              </button>
-            </div>
-          ))}
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-gray-100 to-slate-50 p-[2px]">
+                    <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
+                      <img
+                        src={network.icon}
+                        alt={network.name}
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    </div>
+                  </div>
 
+                  <span className="text-white text-xs font-medium truncate">
+                    {network.name}
+                  </span>
+                  <span
+                    className={`text-[10px] mt-1 px-2 py-0.5 rounded-full font-bold shadow-sm ${
+                      network.isTestnet
+                        ? "bg-gradient-to-r from-yellow-500 to-yellow-700 text-yellow-50"
+                        : "bg-gradient-to-r from-green-500 to-green-700 text-green-50"
+                    }`}
+                  >
+                    {network.isTestnet ? "Testnet" : "Mainnet"}
+                  </span>
+                </button>
+              </div>
+            ))}
+
+          {/* Show More Button */}
           {allNetworks.length > maxVisible && (
             <button
               onClick={() => setShowMore(!showMore)}
@@ -148,7 +171,7 @@ export default function AvailableNetworks() {
                       }}
                       title="Remove Network"
                     >
-                      <Trash2 className="w-4 h-4 mr-[4px] mt-[4px] " />
+                      <Trash2 className="w-4 h-4 mr-[4px] mt-[4px]" />
                     </button>
                   )}
 
@@ -168,10 +191,10 @@ export default function AvailableNetworks() {
                       Chain ID: {network.id}
                     </p>
                     <span
-                      className={`text-[10px] mt-1 inline-block px-2 py-0.5 rounded-full ${
+                      className={`text-[10px] mt-1 inline-block px-2 py-0.5 rounded-full font-bold shadow-sm ${
                         network.isTestnet
-                          ? "bg-yellow-600 text-yellow-100"
-                          : "bg-green-600 text-green-100"
+                          ? "bg-gradient-to-r from-yellow-500 to-yellow-700 text-yellow-50"
+                          : "bg-gradient-to-r from-green-500 to-green-700 text-green-50"
                       }`}
                     >
                       {network.isTestnet ? "Testnet" : "Mainnet"}

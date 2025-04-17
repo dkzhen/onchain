@@ -31,9 +31,9 @@ export default function Navbar() {
           </div>
           <div>
             <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
-              Smart Deployer
+              Smart Tools
             </h1>
-            <p className="text-sm text-gray-400">Network Management</p>
+            <p className="text-sm text-gray-400">Smart management tools</p>
           </div>
         </div>
 
