@@ -10,14 +10,15 @@ import {
   Clock,
 } from "lucide-react";
 import { ERC20_ABI, ERC20_BYTECODE } from "@/app/libs/contract";
+import Image from "next/image";
 
 const options = [
   {
     value: "erc20",
     label: "Deploy ERC-20 Token",
     description: "Standard fungible token",
-    gradient: "from-purple-500 to-pink-500",
-    emoji: "🪙",
+    gradient: "from-[#0c89fa] to-[#ed619f]",
+    icon: "coin.png",
     verified: true,
     openSource: true,
     bytecode: ERC20_BYTECODE,
@@ -28,12 +29,29 @@ const options = [
     },
   },
   {
+    value: "sendERC20",
+    label: "MultiSender ETH",
+    description: "Write and deploy your own",
+    gradient: "from-red-500 to-cyan-500",
+    icon: "multisender.png",
+    verified: false,
+    openSource: false,
+    comingSoon: true,
+    verified: true,
+    openSource: true,
+    bytecode: ERC20_BYTECODE,
+    abi: ERC20_ABI,
+    links: {
+      github: "https://github.com/dkzhen/onchain",
+    },
+  },
+  {
     value: "nft",
     label: "Deploy NFT (ERC-721)",
     description: "Non-fungible token (NFT)",
     gradient: "from-yellow-400 to-red-500",
-    emoji: "🖼️",
-    verified: true,
+    icon: "nft.png",
+    verified: false,
     openSource: true,
     comingSoon: true,
     bytecode: "0x6001600102...",
@@ -45,10 +63,10 @@ const options = [
   },
   {
     value: "custom",
-    label: "Deploy Custom Contract",
-    description: "Write and deploy your own",
-    gradient: "from-blue-500 to-cyan-500",
-    emoji: "⚙️",
+    label: "SOON",
+    description: "unknown",
+    gradient: "from-[#b73852] to-[#ef8fa1]",
+    icon: "coming-soon.png",
     verified: false,
     openSource: false,
     comingSoon: true,
@@ -95,7 +113,12 @@ export default function ContractTypeSelector({
                 <div
                   className={`w-12 h-12 mb-3 rounded-full bg-gradient-to-r ${option.gradient} flex items-center justify-center text-2xl`}
                 >
-                  {option.emoji}
+                  <Image
+                    src={`/icons/${option.icon}`}
+                    alt="logo"
+                    width={28}
+                    height={28}
+                  />
                 </div>
                 <h4 className="font-semibold text-white text-base flex items-center gap-1">
                   {option.label}

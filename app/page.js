@@ -4,16 +4,16 @@ import { useState } from "react";
 import AvailableNetworks from "@/components/availableNetwork";
 import CreateContractCard from "@/components/createContract";
 import Navbar from "@/components/navbar";
-import { CheckCircle } from "lucide-react";
-import Image from "next/image";
 import Footer from "@/components/footer";
 import ContractTypeSelector from "@/components/contractTypeSelector";
+import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   const [selectedOption, setSelectedOption] = useState(null);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
+      <ToastContainer />
       <div className="container py-6 px-4 mx-auto space-y-8">
         <Navbar />
 

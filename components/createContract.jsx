@@ -6,6 +6,7 @@ import { useSwitchChain } from "wagmi";
 import { switchToCustomChain } from "@/app/libs/switcher";
 import { ethers } from "ethers";
 import { ERC20_ABI, ERC20_BYTECODE } from "@/app/libs/contract";
+import { toastError, toastSuccess, toastWarn } from "@/app/libs/toast";
 
 export default function CreateContractCard() {
   const { allNetworks, activeNetwork } = useNetworkStore();
@@ -15,13 +16,11 @@ export default function CreateContractCard() {
   const [isSwitching, setIsSwitching] = useState(false);
   const [isDeploying, setIsDeploying] = useState(false);
 
-  // Input state
   const [tokenName, setTokenName] = useState("");
   const [tokenSymbol, setTokenSymbol] = useState("");
-  const [tokenDecimals, setTokenDecimals] = useState(18); // Default 18 decimals
-  const [tokenSupply, setTokenSupply] = useState("1000000"); // Default 18 decimals
+  const [tokenDecimals, setTokenDecimals] = useState(18);
+  const [tokenSupply, setTokenSupply] = useState("1000000");
 
-  // Sync real chainId from wallet to fix Wagmi cache issue
   useEffect(() => {
     const getChainId = async () => {
       if (typeof window !== "undefined" && window.ethereum) {
@@ -43,10 +42,10 @@ export default function CreateContractCard() {
       window.ethereum?.removeListener("chainChanged", handleChainChange);
   }, []);
 
-  // Fungsi untuk handle klik dan membuat kontrak ERC-20
   const handleClick = async () => {
     const selected = allNetworks.find((n) => n.id === activeNetwork);
     if (!selected) {
+      toastWarn("No network selected");
       console.warn("No network selected");
       return;
     }
@@ -76,6 +75,7 @@ export default function CreateContractCard() {
 
   const createERC20Contract = async () => {
     if (!tokenName || !tokenSymbol) {
+      toastWarn("Token name and symbol are required");
       console.warn("Token name and symbol are required");
       return;
     }
@@ -83,11 +83,9 @@ export default function CreateContractCard() {
     try {
       setIsDeploying(true);
 
-      // Inisialisasi provider dan signer
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
 
-      // Membuat factory ERC-20 contract dengan ABI dan signer
       const factory = new ethers.ContractFactory(
         ERC20_ABI,
         ERC20_BYTECODE,
@@ -104,7 +102,9 @@ export default function CreateContractCard() {
       console.log("Deploying ERC20 contract...");
       await contract.deployed();
       console.log(`Contract deployed at: ${contract.address}`);
+      toastSuccess(`Contract deployed..`);
     } catch (error) {
+      toastError("Error deploying contract");
       console.error("Error deploying contract:", error);
     } finally {
       setIsDeploying(false);
@@ -117,63 +117,65 @@ export default function CreateContractCard() {
         Deploy ERC-20 Contract
       </h3>
 
-      {/* Form input untuk Nama, Simbol, dan Desimal */}
-      <div className="mb-4">
-        <label htmlFor="tokenName" className="block text-white">
-          Token Name
-        </label>
-        <input
-          id="tokenName"
-          type="text"
-          value={tokenName}
-          onChange={(e) => setTokenName(e.target.value)}
-          className="mt-2 p-2 w-full rounded bg-gray-700 text-white"
-          placeholder="Enter token name"
-        />
+      {/* Responsive 2-column layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div>
+          <label htmlFor="tokenName" className="block text-white">
+            Token Name
+          </label>
+          <input
+            id="tokenName"
+            type="text"
+            value={tokenName}
+            onChange={(e) => setTokenName(e.target.value)}
+            className="mt-2 p-2 w-full rounded bg-gray-700 text-white"
+            placeholder="Enter token name"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="tokenSymbol" className="block text-white">
+            Token Symbol
+          </label>
+          <input
+            id="tokenSymbol"
+            type="text"
+            value={tokenSymbol}
+            onChange={(e) => setTokenSymbol(e.target.value)}
+            className="mt-2 p-2 w-full rounded bg-gray-700 text-white"
+            placeholder="Enter token symbol"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="tokenDecimals" className="block text-white">
+            Decimals
+          </label>
+          <input
+            id="tokenDecimals"
+            type="number"
+            value={tokenDecimals}
+            onChange={(e) => setTokenDecimals(e.target.value)}
+            className="mt-2 p-2 w-full rounded bg-gray-700 text-white"
+            placeholder="Enter decimals (default: 18)"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="tokenSupply" className="block text-white">
+            Total Supply
+          </label>
+          <input
+            id="tokenSupply"
+            type="number"
+            value={tokenSupply}
+            onChange={(e) => setTokenSupply(e.target.value)}
+            className="mt-2 p-2 w-full rounded bg-gray-700 text-white"
+            placeholder="Total supply"
+          />
+        </div>
       </div>
 
-      <div className="mb-4">
-        <label htmlFor="tokenSymbol" className="block text-white">
-          Token Symbol
-        </label>
-        <input
-          id="tokenSymbol"
-          type="text"
-          value={tokenSymbol}
-          onChange={(e) => setTokenSymbol(e.target.value)}
-          className="mt-2 p-2 w-full rounded bg-gray-700 text-white"
-          placeholder="Enter token symbol"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="tokenDecimals" className="block text-white">
-          Decimals
-        </label>
-        <input
-          id="tokenDecimals"
-          type="number"
-          value={tokenDecimals}
-          onChange={(e) => setTokenDecimals(e.target.value)}
-          className="mt-2 p-2 w-full rounded bg-gray-700 text-white"
-          placeholder="Enter decimals (default: 18)"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="tokenSupply" className="block text-white">
-          Total Supply
-        </label>
-        <input
-          id="tokenSupply"
-          type="number"
-          value={tokenSupply}
-          onChange={(e) => setTokenSupply(e.target.value)}
-          className="mt-2 p-2 w-full rounded bg-gray-700 text-white"
-          placeholder="Enter decimals (default: 18)"
-        />
-      </div>
-
-      {/* Tombol untuk memulai deployment */}
       <button
         onClick={handleClick}
         disabled={isSwitching || isDeploying}
