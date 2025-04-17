@@ -12,7 +12,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            ethenanova
+            Ethenanova Team
           </a>
         </p>
       </div>
