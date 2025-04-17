@@ -24,7 +24,7 @@ const options = [
     abi: ERC20_ABI,
     links: {
       github: "https://github.com/dkzhen/onchain",
-      sol: "https://github.com/dkzhen/onchain/contracts/ERC20.sol",
+      sol: "https://raw.githubusercontent.com/dkzhen/onchain/refs/heads/main/public/contracts/ERC20.sol",
     },
   },
   {
