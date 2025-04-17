@@ -2,9 +2,8 @@
 
 **Smart Tools** is an all-in-one platform for deploying and managing smart contracts faster, safer, and more flexibly. Designed for **Web3 developers and on-chain builders**, it simplifies the deployment process without needing to rewrite code every time.
 
-![Smart Tools Screenshot](./public/preview.png)
 
-> _Replace this with your actual project screenshot_
+![image](https://github.com/user-attachments/assets/d7648627-05a7-402b-92e3-4a7af45c58b8)
 
 ---
 
