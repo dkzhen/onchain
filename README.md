@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🌐 Smart Tools by Ethenanova
 
-## Getting Started
+**Smart Tools** is an all-in-one platform for deploying and managing smart contracts faster, safer, and more flexibly. Designed for **Web3 developers and on-chain builders**, it simplifies the deployment process without needing to rewrite code every time.
 
-First, run the development server:
+![image](https://github.com/user-attachments/assets/d7648627-05a7-402b-92e3-4a7af45c58b8)
+
+---
+
+## 🚀 Key Features
+
+- 🔗 **Multi-Testnet & Mainnet Support**  
+  Choose your favorite blockchain network — Sepolia, Unichain, Kroma, MegaETH, and more.
+
+- ⚙️ **Instant ERC-20 Token Deployment**  
+  Create and deploy your token in just a few clicks — no coding required.
+
+- 🖼️ **NFT & Custom Contract Support** _(Coming Soon)_  
+  NFT (ERC-721) and custom smart contract support are on the way.
+
+- 📋 **One-Click ABI & Bytecode Copy**  
+  Easily copy contract output (ABI, bytecode) for integration or debugging.
+
+- 🔒 **Open Source & Verified**  
+  Transparent and secure — access `.sol` source code, ABI, and bytecode links.
+
+## 📸 UI Preview
+
+Take a look at how the Smart Tools interface works — clean, simple, and developer-friendly:
+
+| **Network Selection**                                                                                 | **Tools Selector**                                                                                 | **Deployment Form**                                                                                 |
+| ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| ![Network Selection](https://github.com/user-attachments/assets/fc8831a5-e8f9-4187-8b86-88cdea7f5fc9) | ![Tools Selector](https://github.com/user-attachments/assets/c5dbf2e1-beb7-4456-bcbd-9af79b7b2d33) | ![Deployment Form](https://github.com/user-attachments/assets/e591921a-5cc1-494b-9409-3355d5c4e3af) |
+
+## 🧑‍💻 Built With
+
+- **Next.js 15** for main framework
+- **RainbowKit** for connect wallet modal
+- **viem** + **wagmi** + **Ethers.js** for blockchain interaction
+- **Tailwind CSS** for fast and flexible styling
+
+---
+
+## 📦 Getting Started
+
+Clone the project and run it locally:
 
 ```bash
+git clone https://github.com/dkzhen/smart-tools.git
+cd smart-tools
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
