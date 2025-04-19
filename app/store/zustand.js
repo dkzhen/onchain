@@ -26,10 +26,10 @@ const getInitialNetworks = () => {
 const getInitialActiveNetwork = () => {
   try {
     const saved = localStorage.getItem(ACTIVE_KEY);
-    if (saved) return saved;
-    return "5"; // Chain ID Goerli
+    if (saved) return parseInt(saved, 10); // <-- konversi ke number
+    return customChains[0]?.id ?? null;
   } catch (e) {
-    return "5";
+    return customChains[0]?.id ?? null;
   }
 };
 

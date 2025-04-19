@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Trash2, MoreHorizontal, Plus, X } from "lucide-react";
 import { useNetworkStore } from "@/app/store/zustand";
 import AddNetworkModal from "./addNetwork";
+import Image from "next/image";
 
 export default function AvailableNetworks() {
   const {
@@ -102,10 +103,12 @@ export default function AvailableNetworks() {
                 >
                   <div className="w-8 h-8 rounded-full bg-gradient-to-r from-gray-100 to-slate-50 p-[2px]">
                     <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
-                      <img
+                      <Image
                         src={network.icon}
                         alt={network.name}
                         className="w-full h-full object-cover rounded-full"
+                        width={32}
+                        height={32}
                       />
                     </div>
                   </div>
@@ -177,10 +180,12 @@ export default function AvailableNetworks() {
 
                   <div className="w-8 h-8 rounded-full bg-gradient-to-r from-gray-100 to-slate-50 p-[2px]">
                     <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
-                      <img
+                      <Image
                         src={network.icon}
                         alt={network.name}
                         className="w-full h-full object-cover rounded-full"
+                        width={32}
+                        height={32}
                       />
                     </div>
                   </div>

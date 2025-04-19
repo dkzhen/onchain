@@ -52,8 +52,6 @@ export default function CreateContractCard() {
 
     const selectedId = Number(selected.id);
     if (realChainId === selectedId) {
-      console.log("Already on correct network");
-      console.log("Creating contract...");
       await createERC20Contract();
       return;
     }
@@ -62,7 +60,7 @@ export default function CreateContractCard() {
     try {
       const knownChain = chains.find((c) => c.id === selectedId);
       if (knownChain) {
-        await switchChain({ chainId: knownChain.id });
+        switchChain({ chainId: knownChain.id });
       } else {
         await switchToCustomChain(selected);
       }
@@ -99,9 +97,8 @@ export default function CreateContractCard() {
         totalSupply
       );
 
-      console.log("Deploying ERC20 contract...");
       await contract.deployed();
-      console.log(`Contract deployed at: ${contract.address}`);
+
       toastSuccess(`Contract deployed..`);
     } catch (error) {
       toastError("Error deploying contract");
@@ -116,7 +113,12 @@ export default function CreateContractCard() {
       <h3 className="text-lg font-semibold text-white mb-4">
         Deploy ERC-20 Contract
       </h3>
-
+      {!allNetworks.find((n) => n.id === activeNetwork) && (
+        <div className="bg-yellow-500/10 border border-yellow-600 text-yellow-300 rounded-lg p-4 mb-6 text-sm">
+          ⚠️ Please select a network before proceeding. ETH sending is disabled
+          until a network is active.
+        </div>
+      )}
       {/* Responsive 2-column layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div>
@@ -155,9 +157,18 @@ export default function CreateContractCard() {
             id="tokenDecimals"
             type="number"
             value={tokenDecimals}
-            onChange={(e) => setTokenDecimals(e.target.value)}
+            onChange={(e) => {
+              const value = Number(e.target.value);
+              if (value >= 1) setTokenDecimals(value);
+            }}
+            min="0"
             className="mt-2 p-2 w-full rounded bg-gray-700 text-white"
             placeholder="Enter decimals (default: 18)"
+            style={{
+              appearance: "textfield", // untuk Edge
+              MozAppearance: "textfield", // untuk Firefox
+              WebkitAppearance: "none", // untuk Chrome/Safari
+            }}
           />
         </div>
 
@@ -169,7 +180,10 @@ export default function CreateContractCard() {
             id="tokenSupply"
             type="number"
             value={tokenSupply}
-            onChange={(e) => setTokenSupply(e.target.value)}
+            onChange={(e) => {
+              setTokenSupply(e.target.value);
+              if (value >= 1) setTokenSupply(value);
+            }}
             className="mt-2 p-2 w-full rounded bg-gray-700 text-white"
             placeholder="Total supply"
           />
@@ -179,7 +193,7 @@ export default function CreateContractCard() {
       <button
         onClick={handleClick}
         disabled={isSwitching || isDeploying}
-        className="bg-gradient-to-r from-purple-600 to-blue-600 text-white cursor-pointer px-6 py-2 rounded-lg transition"
+        className="bg-gradient-to-r from-blue-500 to-blue-600 text-white cursor-pointer px-6 py-2 rounded-lg transition"
       >
         {isSwitching || isDeploying ? "Processing..." : "Create Contract"}
       </button>

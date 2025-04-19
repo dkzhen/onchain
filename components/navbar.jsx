@@ -3,6 +3,7 @@
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Server } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function Navbar() {
@@ -19,16 +20,23 @@ export default function Navbar() {
         {/* Kiri: Logo dan Judul */}
         {/* MOBILE: hanya logo */}
         <div className="flex items-center sm:hidden">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center">
-            <Server className="w-6 h-6 text-white" />
-          </div>
+          {/* <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center"> */}
+          <Image
+            src="/icons/logo.png"
+            alt="logo"
+            width={65}
+            height={65}
+            className="-ml-2"
+          />
+          {/* </div> */}
         </div>
 
         {/* DESKTOP: logo + teks */}
-        <div className="hidden sm:flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center">
-            <Server className="w-6 h-6 text-white" />
-          </div>
+        <div className="hidden sm:flex items-center gap-2">
+          {/* <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#2e2e2e] to-[#2a292a] flex items-center justify-center"> */}
+          {/* <Server className="w-6 h-6 text-white" /> */}
+          <Image src="/icons/logo.png" alt="logo" width={65} height={65} />
+          {/* </div> */}
           <div>
             <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
               Smart Tools

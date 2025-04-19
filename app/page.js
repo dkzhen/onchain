@@ -7,6 +7,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import ContractTypeSelector from "@/components/contractTypeSelector";
 import { ToastContainer } from "react-toastify";
+import MultiSenderETH from "@/components/multiSender";
 
 export default function Home() {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -19,9 +20,6 @@ export default function Home() {
 
         {/* Available Networks */}
         <section>
-          <h2 className="text-xl font-semibold text-blue-400 mb-2">
-            Available Networks
-          </h2>
           <AvailableNetworks />
         </section>
 
@@ -32,13 +30,23 @@ export default function Home() {
         />
 
         {/* Create Contract Form */}
-        {selectedOption && selectedOption !== "custom" && (
+        {selectedOption && (
           <section className="animate-fadeInUp mt-6">
-            <CreateContractCard selectedType={selectedOption} />
+            {(() => {
+              switch (selectedOption?.toLowerCase()) {
+                case "erc20":
+                  return <CreateContractCard selectedType={selectedOption} />;
+                case "multisender":
+                  return <MultiSenderETH />;
+                default:
+                  return null;
+              }
+            })()}
           </section>
         )}
 
         {/* Footer */}
+
         <Footer />
       </div>
     </div>

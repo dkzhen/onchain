@@ -13,10 +13,7 @@ const customChains = [
     },
     rpcUrls: {
       default: {
-        http: [
-          "https://rpc.sepolia.org",
-          "https://eth-sepolia.public.blastapi.io",
-        ],
+        http: ["https://eth-sepolia.public.blastapi.io"],
       },
     },
     blockExplorers: {
@@ -310,7 +307,7 @@ const customChains = [
     isCustom: false,
     iconUrl: "/icons/50312.png",
     nativeCurrency: {
-      name: "somnia",
+      name: "Somnia",
       symbol: "STT",
       decimals: 18,
     },
