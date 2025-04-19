@@ -11,6 +11,12 @@ import {
 } from "lucide-react";
 import { ERC20_ABI, ERC20_BYTECODE } from "@/app/libs/contract";
 import Image from "next/image";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 const options = [
   {
@@ -125,7 +131,16 @@ export default function ContractTypeSelector({
                     <h4 className="font-semibold text-white text-base flex items-center gap-1">
                       {option.label}
                       {option.verified && (
-                        <ShieldCheck className="text-green-400 w-4 h-4" />
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <ShieldCheck className="text-green-400 w-4 h-4 cursor-pointer" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>Verified</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                       )}
                       {option.comingSoon && (
                         <span className="ml-2 px-2 py-0.5 text-xs bg-yellow-500/20 text-yellow-300 rounded-full flex items-center gap-1">
