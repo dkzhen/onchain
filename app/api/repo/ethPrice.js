@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 
-const COINGECKO_API_URL = `https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR`;
+const API_URL = `https://ethapi.openocean.finance/v2/1/quote?quoteType=swap&inTokenSymbol=ETH&inTokenAddress=0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE&outTokenSymbol=BAD&outTokenAddress=0x32b86b99441480a7e5bd3a26c124ec2373e3f015&amountAll=1&amount=1000000000000000000&gasPrice=5000000000&slippage=100&referrer=0x3487ef9f9b36547e43268b8f0e2349a226c70b53&disabledDexIds=`; // Ganti dengan URL asli kamu
 
 const CACHE_FILE = path.join(
   process.cwd(),
@@ -15,7 +15,7 @@ const CACHE_DURATION = 10 * 60 * 1000; // 10 menit
 
 export async function getPriceETH() {
   try {
-    // Cek apakah cache masih berlaku
+    // Cek cache
     try {
       const fileContent = await fs.readFile(CACHE_FILE, "utf-8");
       const cached = JSON.parse(fileContent);
@@ -25,29 +25,40 @@ export async function getPriceETH() {
         return { ethereum: { usd: cached.price } };
       }
     } catch {
-      // Cache tidak ditemukan atau tidak bisa dibaca, lanjut fetch
+      // Cache error / tidak ada file → lanjut fetch
     }
 
-    // Fetch data baru dari API
-    const response = await fetch(COINGECKO_API_URL);
+    // Fetch dari API baru
+    const response = await fetch(API_URL);
     const data = await response.json();
 
-    if (!data.USD) {
-      throw new Error("Invalid API response: USD not found");
+    if (!data.inToken || typeof data.inToken.price !== "number") {
+      throw new Error("Invalid API response");
     }
 
+    const ethPrice = data.inToken.price;
+
     const result = {
-      price: data.USD,
+      price: ethPrice,
       timestamp: Date.now(),
     };
 
-    // Simpan ke cache
     await fs.mkdir(path.dirname(CACHE_FILE), { recursive: true });
     await fs.writeFile(CACHE_FILE, JSON.stringify(result, null, 2), "utf-8");
 
-    return { ethereum: { usd: result.price } };
+    return { ethereum: { usd: ethPrice } };
   } catch (error) {
     console.error("getPriceETH error:", error);
-    throw error;
+
+    // Fallback ke cache jika tersedia
+    try {
+      const fileContent = await fs.readFile(CACHE_FILE, "utf-8");
+      const cached = JSON.parse(fileContent);
+      console.warn("Using cached data due to error.");
+      return { ethereum: { usd: cached.price } };
+    } catch (cacheError) {
+      console.error("Cache read failed:", cacheError);
+      throw error;
+    }
   }
 }
