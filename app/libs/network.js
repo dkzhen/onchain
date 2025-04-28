@@ -240,26 +240,26 @@ const customChains = [
     },
   },
   {
-    id: 16600,
-    name: "0G Testnet",
+    id: 80087,
+    name: "0G Galileo V3",
     network: "0g-testnet",
     isTestnet: true,
     isCustom: false,
     iconUrl: "/icons/16600.png",
     nativeCurrency: {
-      name: "a0gi",
-      symbol: "A0GI",
+      name: "OG",
+      symbol: "OG",
       decimals: 18,
     },
     rpcUrls: {
       default: {
-        http: ["https://0g-evm-rpc.murphynode.net"],
+        http: ["https://evmrpc-testnet.0g.ai"],
       },
     },
     blockExplorers: {
       default: {
         name: "Explorer",
-        url: "https://chainscan-newton.0g.ai/",
+        url: "https://chainscan-galileo.0g.ai",
       },
     },
     contracts: {
