@@ -300,7 +300,7 @@ const customChains = [
     },
   },
   {
-    id: 17000,
+    id: 930997494890041,
     name: "Embr Testnet",
     network: "embr-testnet",
     isTestnet: true,
