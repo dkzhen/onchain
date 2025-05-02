@@ -300,6 +300,36 @@ const customChains = [
     },
   },
   {
+    id: 17000,
+    name: "Embr Testnet",
+    network: "embr-testnet",
+    isTestnet: true,
+    isCustom: false,
+    iconUrl: "/icons/20250502_190043.jpg",
+    nativeCurrency: {
+      name: "EMBRINIT",
+      symbol: "EMBRINIT",
+      decimals: 18,
+    },
+    rpcUrls: {
+      default: {
+        http: ["https://jsonrpc-embr-1.anvil.asia-southeast.initia.xyz"],
+      },
+    },
+    blockExplorers: {
+      default: {
+        name: "Explorer",
+        url: "https://scan.testnet.initia.xyz/embr-1",
+      },
+    },
+    contracts: {
+      multicall3: {
+        address: "",
+        blockCreated: 0,
+      },
+    },
+  },
+  {
     id: 50312,
     name: "Somnia Testnet",
     network: "somnia-testnet",
